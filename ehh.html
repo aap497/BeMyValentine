@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aaku, Be My Valentine 💕</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #ff9a9e, #fad0c4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 380px;
+      width: 100%;
+      position: relative;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin: 10px 0 6px;
+      color: #ff4d6d;
+    }
+
+    .caption {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.45;
+    }
+
+    p {
+      font-size: 1.05rem;
+      color: #444;
+      margin-bottom: 24px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #noBtn {
+      background: #f1f1f1;
+      color: #333;
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+    }
+
+    .hearts {
+      font-size: 1.8rem;
+      animation: float 2s ease-in-out infinite;
+      margin-bottom: 8px;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0); }
+    }
+
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .confetti span {
+      position: absolute;
+      top: -10px;
+      font-size: 1.2rem;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    iframe {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="hearts">💖💘💖</div>
+
+    <img src="https://drive.google.com/file/d/1pAtaBZ48o0BUDSbUIemmypxcjIX1s7bx/view?usp=drivesdk" alt="Us looking at each other" />
+
+    <h1>Aaku ❤️</h1>
+    <div class="caption">
+      I looked into your eyes and thought, “Wow.”<br />
+      Then I kept looking and thought, “Yep… I’m still obsessed.” 😌<br />
+      Zero regrets. One husband. Lifetime membership.
+    </div>
+
+    <p>Will you be my Valentine?</p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes, duh 💕</button>
+      <button id="noBtn">No 🙃</button>
+    </div>
+  </div>
+
+  <div class="confetti" id="confetti"></div>
+
+  <!-- YouTube music: starts at 0:09 and ends at 0:28 -->
+  <iframe id="music" width="0" height="0"
+    src="https://www.youtube.com/embed/4FwRl_eOL9o?start=9&end=28&autoplay=1&mute=1"
+    allow="autoplay"></iframe>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const card = document.getElementById('card');
+    const confetti = document.getElementById('confetti');
+    const music = document.getElementById('music');
+
+    // Mobile-friendly runaway button
+    function moveNoButton() {
+      const x = Math.random() * 220 - 110;
+      const y = Math.random() * 220 - 110;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    noBtn.addEventListener('mouseover', moveNoButton);
+    noBtn.addEventListener('touchstart', moveNoButton);
+
+    yesBtn.addEventListener('click', () => {
+      // unmute & play music
+      music.src = music.src.replace('mute=1', 'mute=0');
+
+      card.innerHTML = `
+        <div class="hearts">💞💞💞</div>
+        <h1>It’s a Date 😍</h1>
+        <p>
+          Valentine’s plan unlocked 🔓<br /><br />
+          🍛 Indian dinner with the love of my life<br />
+          🌶 Extra spice (obviously)<br />
+          🍰 Dessert I’ll pretend to share<br /><br />
+          Aaku, you + me + good food = my favorite love story ❤️
+        </p>
+      `;
+
+      for (let i = 0; i < 32; i++) {
+        const span = document.createElement('span');
+        span.textContent = Math.random() > 0.5 ? '🤍' : '❤️';
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.animationDuration = 2 + Math.random() * 2 + 's';
+        confetti.appendChild(span);
+      }
+    });
+  </script>
+</body>
+</html>
